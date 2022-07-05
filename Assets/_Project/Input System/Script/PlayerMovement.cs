@@ -20,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     private float gravityValue = -9.81f;
 
     [SerializeField]
+    private float rotationSpeed = 4f;
+
+    [SerializeField]
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -61,5 +64,11 @@ public class PlayerMovement : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
+        if(movement != Vector2.zero){
+            float targetAngle = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cameraMainTransform.eulerAngles.y;
+            Quaternion rotation = Quaternion.Euler(0f,targetAngle,0f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        }
     }
 }
