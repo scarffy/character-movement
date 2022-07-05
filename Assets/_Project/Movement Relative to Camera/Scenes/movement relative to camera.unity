@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37bc03c91f5048cc800cfa735408eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 0
+  _movementSpeed: 10
   _characterController: {fileID: 0}
 --- !u!4 &644855552
 Transform:
