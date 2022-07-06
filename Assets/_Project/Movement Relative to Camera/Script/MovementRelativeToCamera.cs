@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class MovementRelativeToCamera : MonoBehaviour
 {
+    [SerializeField] private float _movementSpeed;
+    [SerializeField] CharacterController _characterController;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _characterController = gameObject.AddComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -30,12 +33,13 @@ public class MovementRelativeToCamera : MonoBehaviour
         forward = forward.normalized;
         right = right.normalized;
 
-        Vector3 forwardRelativeVerticalInput = playerVerticalInput * forward * Time.deltaTime;
-        Vector3 rightRelativeVerticalInput = playerHorizontalInput * right *Time.deltaTime;
+        Vector3 forwardRelativeVerticalInput = playerVerticalInput * forward * _movementSpeed * Time.deltaTime;
+        Vector3 rightRelativeVerticalInput = playerHorizontalInput * right * _movementSpeed * Time.deltaTime;
 
         Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeVerticalInput;
 
         //! Maybe can use rigidbody instead since we need to have some collision over here
-        transform.Translate(cameraRelativeMovement);
+        //transform.Translate(cameraRelativeMovement);
+        _characterController.Move(cameraRelativeMovement);
     }
 }
